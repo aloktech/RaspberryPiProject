@@ -5,16 +5,11 @@
  */
 package com.imos.sample.pi;
 
-import static com.imos.sample.pi.utils.RaspberryPiConstants.*;
 import java.io.File;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -36,6 +31,45 @@ import javax.mail.internet.MimeMultipart;
 public class SMTPMailSample {
 
     private final Properties properties = new Properties();
+    
+    public void connect(String header) {
+        // Get system properties
+        Properties mailProperties = System.getProperties();
+
+        // Setup mail server
+        mailProperties.setProperty("mail.smtp.host", "smtp.gmail.com");
+        mailProperties.setProperty("mail.smtp.user", "RaspberryPi");
+        mailProperties.setProperty("mail.smtp.port", "587");
+        mailProperties.setProperty("mail.smtp.auth", "true");
+        mailProperties.setProperty("mail.smtp.starttls.enable", "true");
+
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(mailProperties);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            message.setFrom(new InternetAddress("alok.r.meher@gmail.com"));
+
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("meher.ranjan12@gmail.com"));
+
+            // Set Subject: header field
+            message.setSubject("This is the Subject Line! " + header);
+
+            // Now set the actual message
+            message.setText("This is actual message");
+
+            // Send message
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", "alok.r.meher@gmail.com", "gun1new*point");
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
 
     public void connect(String header, String videoFile, String timeFile) {
 

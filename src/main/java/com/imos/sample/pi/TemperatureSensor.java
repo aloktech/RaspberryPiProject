@@ -37,7 +37,7 @@ import org.json.JSONObject;
  *
  * @author Robert Savage
  */
-public class ControlGpioExample {
+public class TemperatureSensor {
 
     SMTPMailSample sample = new SMTPMailSample();
     int detectionCount = 0;
@@ -168,7 +168,7 @@ public class ControlGpioExample {
                 }
             }
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(ControlGpioExample.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TemperatureSensor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -258,7 +258,7 @@ public class ControlGpioExample {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ControlGpioExample.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TemperatureSensor.class.getName()).log(Level.SEVERE, null, ex);
             }
             counter++;
         }
@@ -333,7 +333,7 @@ public class ControlGpioExample {
                     p = Runtime.getRuntime().exec(cmd);
                     p.waitFor();
                 } catch (IOException | InterruptedException ex) {
-                    Logger.getLogger(ControlGpioExample.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TemperatureSensor.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 led.low();

@@ -21,13 +21,14 @@ public class PiMainFile {
             SMTPMailSample sample = new SMTPMailSample();
             sample.connect("", "sample.txt", "sample.txt");
         } else {
-            ControlGpioExample control = new ControlGpioExample();
+            PythonTemperatureSensor inst = new PythonTemperatureSensor();
             try {
-                control.controlGpio();
+                inst.controlGpio();
             } catch (InterruptedException ex) {
                 Logger.getLogger(PiMainFile.class.getName()).log(Level.SEVERE, null, ex);
+                SMTPMailSample sample = new SMTPMailSample();
+                sample.connect("PythonTemperatureSensor stopped");
             }
-
         }
     }
 }
